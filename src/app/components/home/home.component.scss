@@ -2,10 +2,21 @@
     padding: 20px 40px;
     display: flex;
     flex-direction: column;
+    height: calc(100vh - 56px);
 }
 
 .btn {
     margin: auto;
     padding: 10px 20px;
     cursor: pointer;
+}
+
+.theme-light {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.theme-dark {
+    background-color: #333;
+    color: #fff;
 }
