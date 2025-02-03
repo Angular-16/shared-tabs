@@ -1,0 +1,13 @@
+.container {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 56px);
+}
+
+.btn {
+    margin: auto;
+    padding: 10px 20px;
+    text-transform: capitalize;
+    cursor: pointer;
+}

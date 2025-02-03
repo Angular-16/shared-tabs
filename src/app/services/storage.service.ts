@@ -1,5 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, fromEvent, map } from 'rxjs';
 import { WINDOW } from '../providers/window.provider';
+import { Theme } from '../types';
 
 /**
  * StorageService забирает window из инжектора и предоставляет свои обертки для сохранения и чтения данных.
@@ -9,7 +12,7 @@ import { WINDOW } from '../providers/window.provider';
   providedIn: 'root',
 })
 export class StorageService {
-  constructor(@Inject(WINDOW) private readonly window: Window) {}
+  private readonly window = inject(WINDOW);
 
   set<T>(key: string, keyValue: T): void {
     this.window.localStorage.setItem(key, JSON.stringify(keyValue));
@@ -30,4 +33,12 @@ export class StorageService {
       throw new Error('something wrong');
     }
   }
+
+  readonly storage = toSignal(
+    fromEvent<StorageEvent>(this.window, 'storage').pipe(
+      filter((event) => event.storageArea === localStorage),
+      filter((event) => event.key === Theme.key),
+      map((event) => event.newValue),
+    ),
+  );
 }

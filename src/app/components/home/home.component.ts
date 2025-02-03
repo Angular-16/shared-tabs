@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { StorageService } from '../../services';
-import { Theme } from '../../types';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'st-home',
@@ -8,13 +6,4 @@ import { Theme } from '../../types';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {
-  private readonly storageService = inject(StorageService);
-  currentTheme = this.storageService.get('theme');
-
-  onClick(): void {
-    const theme = this.currentTheme === Theme.light ? Theme.dark : Theme.light;
-    this.storageService.set<Theme>('theme', theme);
-    this.currentTheme = this.storageService.get<string>('theme');
-  }
-}
+export class HomeComponent {}
